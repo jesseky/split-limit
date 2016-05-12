@@ -1,4 +1,7 @@
 ### split-limit
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+
 splits a String into into limited length of substrings, but keep last substring unsplit
 
 > splits a String object into an array of strings by separating the string into substrings.
