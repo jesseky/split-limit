@@ -7,7 +7,7 @@ splits a String into into limited length of substrings, but keep last substring 
 
 
 ### Usage
-```
+``` js
 var splitLimit = require('split-limit');
 var str = 'user-agent: Mozilla/5.0, OS: Mac, Arch:  amd64';
 
