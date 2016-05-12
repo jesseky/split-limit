@@ -1,0 +1,32 @@
+{
+  "name": "split-limit",
+  "version": "1.0.0",
+  "description": "splits a String into into limited length of substrings, but keep last substring unsplit",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesseky/split-limit.git"
+  },
+  "keywords": [
+    "split",
+    "limit"
+  ],
+  "author": "jesse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jesseky/split-limit/issues"
+  },
+  "homepage": "https://github.com/jesseky/split-limit#readme",
+  "devDependencies": {
+    "assert": "*",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "npm-run-all": "*"
+  }
+}
