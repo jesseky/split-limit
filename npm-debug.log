@@ -1,0 +1,102 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/5.8.0/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.7.3
+3 info using node@v5.8.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/jesse/project/github/split-limit',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/jesse/.npm/split-limit/1.0.0/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/jesse/.npm correctMkdir not in flight; initializing
+10 info lifecycle split-limit@1.0.0~prepublish: split-limit@1.0.0
+11 silly lifecycle split-limit@1.0.0~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/jesse/.npm/split-limit/1.0.0/package.tgz',
+12 verbose tar pack   '/Users/jesse/project/github/split-limit' ]
+13 verbose tarball /Users/jesse/.npm/split-limit/1.0.0/package.tgz
+14 verbose folder /Users/jesse/project/github/split-limit
+15 verbose addLocalTarball adding from inside cache /Users/jesse/.npm/split-limit/1.0.0/package.tgz
+16 verbose correctMkdir /Users/jesse/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd split-limit@1.0.0
+18 verbose afterAdd /Users/jesse/.npm/split-limit/1.0.0/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/jesse/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/jesse/.npm/split-limit/1.0.0/package/package.json written
+21 silly publish { name: 'split-limit',
+21 silly publish   version: '1.0.0',
+21 silly publish   description: 'splits a String into into limited length of substrings, but keep last substring unsplit',
+21 silly publish   main: 'index.js',
+21 silly publish   directories: { test: 'test' },
+21 silly publish   scripts: { test: 'mocha', push: 'git push --follow-tags' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/jesseky/split-limit.git' },
+21 silly publish   keywords: [ 'split', 'limit' ],
+21 silly publish   author: { name: 'jesse' },
+21 silly publish   license: 'MIT',
+21 silly publish   bugs: { url: 'https://github.com/jesseky/split-limit/issues' },
+21 silly publish   homepage: 'https://github.com/jesseky/split-limit#readme',
+21 silly publish   devDependencies:
+21 silly publish    { assert: '*',
+21 silly publish      chai: '^3.5.0',
+21 silly publish      mocha: '^2.4.5',
+21 silly publish      'npm-run-all': '*' },
+21 silly publish   readme: '### split-limit\n[![NPM version][npm-image]][npm-url]\n[![Build Status][travis-image]][travis-url]\n\nsplits a String into into limited length of substrings, but keep last substring unsplit\n\n> splits a String object into an array of strings by separating the string into substrings.\n> but unlike String.prototype.split(), the last substring will be the unsplit remainder,\n> and it is more like ruby\'s split, php\'s explode/preg_split, golang\'s strings.SplitN function\n\n\n### Usage\n``` js\nvar splitLimit = require(\'split-limit\');\nvar str = \'user-agent: Mozilla/5.0, OS: Mac, Arch:  amd64\';\n\nvar splited = splitLimit(str, /:\\s+/, 2);\n// ==> [\'user-agent\', \'Mozilla/5.0, OS: Mac, Arch:  amd64\']\n```\nEnjoy!\n#### License\nMIT © [Jesse](http://www.jianshu.com/users/e1e48224c7f1/)\n\n[npm-url]: https://npmjs.org/package/split-limit\n[npm-image]: https://img.shields.io/npm/v/split-limit.svg?style=flat-square\n\n[travis-url]: https://travis-ci.org/jesseky/split-limit\n[travis-image]: https://img.shields.io/travis/jesseky/split-limit.svg?style=flat-square\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '3b7c0dfd642210a986fde017ec1cc8eb15b13b6f',
+21 silly publish   _id: 'split-limit@1.0.0',
+21 silly publish   _shasum: '808081b0da39d287644c4824b94494ee1cbd0e34',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name split-limit
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry uri https://registry.npmjs.org/split-limit
+27 verbose publish registryBase https://registry.npmjs.org/
+28 silly publish uploading /Users/jesse/.npm/split-limit/1.0.0/package.tgz
+29 verbose request uri https://registry.npmjs.org/split-limit
+30 verbose request sending authorization for write operation
+31 info attempt registry request try #1 at 01:12:38
+32 verbose request using bearer token for auth
+33 verbose request id ddcf29d904b56dff
+34 http request PUT https://registry.npmjs.org/split-limit
+35 http 403 https://registry.npmjs.org/split-limit
+36 verbose headers { 'content-length': '95',
+36 verbose headers   'x-served-by': 'cache-dfw1848-DFW',
+36 verbose headers   'x-cache': 'MISS',
+36 verbose headers   'accept-ranges': 'bytes',
+36 verbose headers   'x-timer': 'S1463073158.508305,VS0,VE827',
+36 verbose headers   'x-cache-hits': '0',
+36 verbose headers   date: 'Thu, 12 May 2016 17:12:39 GMT',
+36 verbose headers   'content-type': 'application/json' }
+37 verbose request invalidating /Users/jesse/.npm/registry.npmjs.org/split-limit on PUT
+38 error publish Failed PUT 403
+39 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : split-limit
+39 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+39 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+39 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+39 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:199:22)
+39 verbose stack     at emitTwo (events.js:100:13)
+39 verbose stack     at Request.emit (events.js:185:7)
+39 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1036:10)
+39 verbose stack     at emitOne (events.js:95:20)
+39 verbose stack     at Request.emit (events.js:182:7)
+39 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:963:12)
+40 verbose statusCode 403
+41 verbose pkgid split-limit
+42 verbose cwd /Users/jesse/project/github/split-limit
+43 error Darwin 15.4.0
+44 error argv "/usr/local/Cellar/node/5.8.0/bin/node" "/usr/local/bin/npm" "publish"
+45 error node v5.8.0
+46 error npm  v3.7.3
+47 error code E403
+48 error "You cannot publish over the previously published version 1.0.0." : split-limit
+49 error If you need help, you may report this error at:
+49 error     <https://github.com/npm/npm/issues>
+50 verbose exit [ 1, true ]
