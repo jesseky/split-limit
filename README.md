@@ -2,21 +2,55 @@
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 
-splits a String into into limited length of substrings, but keep last substring unsplit
+Splits a string into limited length of substrings, but keep last substring unsplit.
 
-> splits a String object into an array of strings by separating the string into substrings.
-> but unlike String.prototype.split(), the last substring will be the unsplit remainder,
-> and it is more like ruby's split, php's explode/preg_split, golang's strings.SplitN function
+> Splits a String into an array of substrings, by passing parameter `limit`, only divide limit-1 times.
+> and unlike String.prototype.split(), the last substring will be the unsplit remainder.
+> it is more like ruby's split, php's explode/preg_split, golang's strings.SplitN/Regexp.Split function
 
+### Syntax
+```
+function splitLimit(string, separator, [limit = undefined], [options = {isKeepSubmatches: false} ]) {
+
+}
+```
+### Parameters
+>#### string `String`
+> the string need to be split
+>#### separator `String|RegExp`
+> if separator is a RegExp, string is divided where the separator regexp matches,
+> and if separator regexp contains groups, the last parameter `options` will decide how to treat submatches
+>#### *limit* `Integer` (Optional)
+> Optional Integer specifying a limit on the number of splits to be found,
+> unlike String.prototype.split(), it will only split `limit-1` times, normally it will return limit size array of substrings.
+> if not set or set to null, is equivalent to String.prototype.split()
+>#### *options* `Object`  (Optional)
+>decides to ignore or keep submatches while separator is a regexp and contains groups.
+> if options is not been set or set to {isKeepSubmatches: false}, then submatches will be dropped. like php/golang does.
+> if options is set to {isKeepSubmatches: true}, then submatches will be returned in the result array, followed after split value
+> and the result array size maybe large than limit, like js/ruby/perl does (unless you know it exactly, otherwise just ignore it).
 
 ### Usage
 ``` js
 var splitLimit = require('split-limit');
 var str = 'user-agent: Mozilla/5.0, OS: Mac, Arch:  amd64';
 
-var splited = splitLimit(str, /:\s+/, 2);
-// ==> ['user-agent', 'Mozilla/5.0, OS: Mac, Arch:  amd64']
+var splits = splitLimit(str, /:\s+/, 2);
+// ==> [ 'user-agent', 'Mozilla/5.0, OS: Mac, Arch:  amd64' ]
+
+//
+// separator is regexp and contains groups
+var str2 = 'apple *-* pear  .+.  melon ^-^ banana';
+var splits2 = splitLimit(str2, /\s*([^-+])([-+])([^-+])\s*/, 3);
+// ==> [ 'apple', 'pear', 'melon ^-^ banana' ]
+
+// keep the submatches
+var splits2_keep = splitLimit(str2, /\s*([^-+])([-+])([^-+])\s*/, 3, {
+  isKeepSubmatches: true
+});
+// ==> [ 'apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon ^-^ banana' ]
 ```
+
 Enjoy!
 #### License
 MIT © [Jesse](http://www.jianshu.com/users/e1e48224c7f1/)

@@ -1,6 +1,6 @@
 /**
  *
- * splits a String object into an array of strings by separating the string into substrings.
+ * splits a String into an array of substrings, and limit split times.
  * but unlike String.prototype.split(), the last substring will be the unsplit remainder,
  * and it is more like ruby's split, php's explode/preg_split, golang's strings.SplitN function
  *
@@ -11,7 +11,7 @@
 
 module.exports = splitLimit;
 
-function splitLimit(string, separator, limit) {
+function splitLimit(string, separator, limit, options) {
   if (typeof string !== 'string') {
     string = '' + string;
   }
@@ -36,13 +36,25 @@ function splitLimit(string, separator, limit) {
   if (!separator.global) { // convert to global match
     separator = new RegExp(separator.source, 'g' + (separator.multiline ? 'm' : '') + (separator.ignoreCase ? 'i' : ''));
   }
+  var optional = options || {}; // using optional to determal submatches actor like js/ruby/perl or php/golang
   var startPosition = 0;
   var prevMatchedSize = 0;
-  string.replace(separator, function(matched, position, all) {
-    if (result.length < size - 1) {
-      result.push(all.substring(startPosition + prevMatchedSize, position));
+  var resultSize = 0;
+  string.replace(separator, function() {
+    var args = Array.prototype.slice.call(arguments); // or es6 [...arguments]
+    var matched = args[0]; // the whole matched
+    var position = args[args.length - 2];
+    if (resultSize < size - 1) {
+      result.push(string.substring(startPosition + prevMatchedSize, position));
       prevMatchedSize = matched.length;
       startPosition = position;
+      resultSize++;
+      if (optional.isKeepSubmatches) { // and the submatched
+        var submatches = args.slice(1, args.length - 2);
+        for (var i = 0; i < submatches.length; i++) {
+          result.push(submatches[i]);
+        }
+      }
     }
   });
   result.push(string.substring(startPosition + prevMatchedSize));
