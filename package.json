@@ -1,7 +1,7 @@
 {
   "name": "split-limit",
-  "version": "1.0.2",
-  "description": "splits a String into into limited length of substrings, but keep last substring unsplit",
+  "version": "1.0.3",
+  "description": "splits a string into limited length of substrings, but keep last substring unsplit",
   "main": "index.js",
   "directories": {
     "test": "test"
