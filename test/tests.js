@@ -9,8 +9,8 @@ var str3 = 'apple *-* pear  .+.  melon ^-^ banana';
 
 describe('RegExp separator: ', function() {
   it('Split with RegExp correctly', function() {
-    assert.deepEqual(splitLimit(str, /:\s+/, -1), []);
-    assert.deepEqual(splitLimit(str, /:\s+/, 0), []);
+    assert.deepEqual(splitLimit(str, /:\s+/, -1), ['user-agent', 'Mozilla/5.0, OS', 'Mac, Arch', 'amd64']);
+    assert.deepEqual(splitLimit(str, /:\s+/, 0), ['user-agent', 'Mozilla/5.0, OS', 'Mac, Arch', 'amd64']);
     assert.deepEqual(splitLimit(str, /:\s+/, 1), ['user-agent: Mozilla/5.0, OS: Mac, Arch:  amd64']);
     assert.deepEqual(splitLimit(str, /:\s+/, 2), ['user-agent', 'Mozilla/5.0, OS: Mac, Arch:  amd64']);
     assert.deepEqual(splitLimit(str, /:\s+/, 3), ['user-agent', 'Mozilla/5.0, OS', 'Mac, Arch:  amd64']);
@@ -21,8 +21,8 @@ describe('RegExp separator: ', function() {
 
 describe('String separator: ', function() {
   it('Split with String correctly', function() {
-    assert.deepEqual(splitLimit(str, ': ', -1), []);
-    assert.deepEqual(splitLimit(str, ': ', 0), []);
+    assert.deepEqual(splitLimit(str, ': ', -1), ['user-agent', 'Mozilla/5.0, OS', 'Mac, Arch', ' amd64']);
+    assert.deepEqual(splitLimit(str, ': ', 0), ['user-agent', 'Mozilla/5.0, OS', 'Mac, Arch', ' amd64']);
     assert.deepEqual(splitLimit(str, ': ', 1), ['user-agent: Mozilla/5.0, OS: Mac, Arch:  amd64']);
     assert.deepEqual(splitLimit(str, ': ', 2), ['user-agent', 'Mozilla/5.0, OS: Mac, Arch:  amd64']);
     assert.deepEqual(splitLimit(str, ': ', 3), ['user-agent', 'Mozilla/5.0, OS', 'Mac, Arch:  amd64']);
@@ -41,8 +41,8 @@ describe('separator with undefined or null: ', function() {
 // test with groups
 describe('RegExp separator with groups but drop submatches: ', function() {
   it('Split with RegExp groups but drop submatches correctly', function() {
-    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, -1), []);
-    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 0), []);
+    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, -1), ['apple', 'pear', 'melon', 'banana']);
+    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 0), ['apple', 'pear', 'melon', 'banana']);
     assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 1), ['apple - pear  -  melon - banana']);
     assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 2), ['apple', 'pear  -  melon - banana']);
     assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 3), ['apple', 'pear', 'melon - banana']);
@@ -56,8 +56,8 @@ describe('RegExp separator with groups and keep submatches: ', function() {
     var options = {
       isKeepSubmatches: true
     };
-    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, -1, options), []);
-    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 0, options), []);
+    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, -1, options), ['apple', '-', 'pear', '-', 'melon', '-', 'banana']);
+    assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 0, options), ['apple', '-', 'pear', '-', 'melon', '-', 'banana']);
     assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 1, options), ['apple - pear  -  melon - banana']);
     assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 2, options), ['apple', '-', 'pear  -  melon - banana']);
     assert.deepEqual(splitLimit(str2, /\s*(-)\s*/, 3, options), ['apple', '-', 'pear', '-', 'melon - banana']);
@@ -71,12 +71,12 @@ describe('RegExp separator contains multiple groups and keep submatches: ', func
     var options = {
       isKeepSubmatches: true
     };
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, -1, options), []);
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 0, options), []);
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 1, options), ["apple *-* pear  .+.  melon ^-^ banana"]);
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 2, options), ["apple", "*", "-", "*", "pear  .+.  melon ^-^ banana"]);
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 3, options), ["apple", "*", "-", "*", "pear", ".", "+", ".", "melon ^-^ banana"]);
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 4, options), ["apple", "*", "-", "*", "pear", ".", "+", ".", "melon", "^", "-", "^", "banana"]);
-    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 5, options), ["apple", "*", "-", "*", "pear", ".", "+", ".", "melon", "^", "-", "^", "banana"]);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, -1, options), ['apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon', '^', '-', '^', 'banana']);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 0, options), ['apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon', '^', '-', '^', 'banana']);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 1, options), ['apple *-* pear  .+.  melon ^-^ banana']);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 2, options), ['apple', '*', '-', '*', 'pear  .+.  melon ^-^ banana']);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 3, options), ['apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon ^-^ banana']);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 4, options), ['apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon', '^', '-', '^', 'banana']);
+    assert.deepEqual(splitLimit(str3, /\s*([^-+])([-+])([^-+])\s*/, 5, options), ['apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon', '^', '-', '^', 'banana']);
   });
 });

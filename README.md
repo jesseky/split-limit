@@ -22,8 +22,9 @@ function splitLimit(string, separator, [limit = undefined], [options = {isKeepSu
 > and if separator regexp contains groups, the last parameter `options` will decide how to treat submatches
 >#### *limit* `Integer` (Optional)
 > Optional Integer specifying a limit on the number of splits to be found,
-> unlike String.prototype.split(), it will only split `limit-1` times, normally it will return limit size array of substrings.
-> if not set or set to null, is equivalent to String.prototype.split()
+> unlike String.prototype.split(), it will only split `limit-1` times (if limit is >= 1), normally it will return limit size array of substrings.
+> if not set or set to null or set to isNaN, is equivalent to String.prototype.split()
+> if set to <= 0, it will split all matched.(means there is no limited)
 >#### *options* `Object`  (Optional)
 >decides to ignore or keep submatches while separator is a regexp and contains groups.
 > if options is not been set or set to {isKeepSubmatches: false}, then submatches will be dropped. like php/golang does.
@@ -38,7 +39,7 @@ var str = 'user-agent: Mozilla/5.0, OS: Mac, Arch:  amd64';
 var splits = splitLimit(str, /:\s+/, 2);
 // ==> [ 'user-agent', 'Mozilla/5.0, OS: Mac, Arch:  amd64' ]
 
-//
+
 // separator is regexp and contains groups
 var str2 = 'apple *-* pear  .+.  melon ^-^ banana';
 var splits2 = splitLimit(str2, /\s*([^-+])([-+])([^-+])\s*/, 3);
@@ -49,6 +50,17 @@ var splits2_keep = splitLimit(str2, /\s*([^-+])([-+])([^-+])\s*/, 3, {
   isKeepSubmatches: true
 });
 // ==> [ 'apple', '*', '-', '*', 'pear', '.', '+', '.', 'melon ^-^ banana' ]
+
+
+// split with string
+// limit <=0 will split with all matched substrings.
+splitLimit('write|read|create|lock', '|', -1);
+// ==> [ 'write', 'read', 'create', 'lock' ]
+
+// split with regexp and limit is -1, unlike String.prototype.split(), it ignored submatches!
+splitLimit('apple - pear  -  melon - banana', /\s*(-)\s*/, -1);
+// ==> ['apple', 'pear', 'melon', 'banana']
+// if you want to keep submatches like String.prototype.split(), set options to {isKeepSubmatches: true}
 ```
 
 Enjoy!

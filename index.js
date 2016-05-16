@@ -12,21 +12,22 @@
 module.exports = splitLimit;
 
 function splitLimit(string, separator, limit, options) {
+  var isReg = Object.prototype.toString.call(separator) === '[object RegExp]';
+  var size = parseInt(limit, 10);
+  var optional = options || {}; // using optional to determal submatches actor like js/ruby/perl or php/golang
+  var startPosition = 0;
+  var prevMatchedSize = 0;
+  var resultSize = 0;
+  var result = [];
   if (typeof string !== 'string') {
     string = '' + string;
   }
-  var isReg = Object.prototype.toString.call(separator) === '[object RegExp]';
-  var result = [];
-  if (typeof limit === 'undefined' || limit === null) {
+  if (typeof limit === 'undefined' || limit === null || isNaN(size)) {
     return string.split(separator);
-  }
-  var size = parseInt(limit, 10);
-  if (size <= 0) {
-    return [];
   }
   if (!isReg) { // separator is string
     var splited = string.split(separator);
-    if (size >= splited.length) {
+    if (size <= 0 || size >= splited.length) {
       return splited;
     }
     result = splited.slice(0, size - 1);
@@ -34,17 +35,13 @@ function splitLimit(string, separator, limit, options) {
     return result;
   }
   if (!separator.global) { // convert to global match
-    separator = new RegExp(separator.source, 'g' + (separator.multiline ? 'm' : '') + (separator.ignoreCase ? 'i' : ''));
+    separator = new RegExp(separator.source, separator.flags !== undefined ? separator.flags : ('g' + (separator.multiline ? 'm' : '') + (separator.ignoreCase ? 'i' : '')));
   }
-  var optional = options || {}; // using optional to determal submatches actor like js/ruby/perl or php/golang
-  var startPosition = 0;
-  var prevMatchedSize = 0;
-  var resultSize = 0;
   string.replace(separator, function() {
     var args = Array.prototype.slice.call(arguments); // or es6 [...arguments]
     var matched = args[0]; // the whole matched
     var position = args[args.length - 2];
-    if (resultSize < size - 1) {
+    if (resultSize < size - 1 || size <= 0) {
       result.push(string.substring(startPosition + prevMatchedSize, position));
       prevMatchedSize = matched.length;
       startPosition = position;

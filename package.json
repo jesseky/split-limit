@@ -1,6 +1,6 @@
 {
   "name": "split-limit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "splits a string into limited length of substrings, but keep last substring unsplit",
   "main": "index.js",
   "directories": {
