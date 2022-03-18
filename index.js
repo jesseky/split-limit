@@ -35,7 +35,7 @@ function splitLimit(string, separator, limit, options) {
     return result;
   }
   if (!separator.global) { // convert to global match
-    separator = new RegExp(separator.source, separator.flags !== undefined ? separator.flags : ('g' + (separator.multiline ? 'm' : '') + (separator.ignoreCase ? 'i' : '')));
+    separator = new RegExp(separator.source, separator.flags ? separator.flags + (separator.flags.indexOf('g') >= 0 ? '' : 'g') : ('g' + (separator.multiline ? 'm' : '') + (separator.ignoreCase ? 'i' : '')));
   }
   string.replace(separator, function() {
     var args = Array.prototype.slice.call(arguments); // or es6 [...arguments]
