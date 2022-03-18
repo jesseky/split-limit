@@ -1,7 +1,8 @@
 sudo: false
 language: node_js
 node_js:
+  - "17"
+  - "14"
   - v5
-  - v16
 notifications:
   email: false
